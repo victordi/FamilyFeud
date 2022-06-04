@@ -28,7 +28,7 @@ struct ContentView: View {
                 Spacer()
             }
         } else {
-            GameView(player1: true, pointsP1: 0, pointsP2: 0, teamName1: teamName1, teamName2: teamName2)
+            GameView(gameState: GameState(player1: true, pointsP1: 0, pointsP2: 0, teamName1: teamName1, teamName2: teamName2))
         }
     }
 }
