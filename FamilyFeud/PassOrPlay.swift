@@ -4,15 +4,18 @@ struct PassOrPlayView: View {
     @State private var mainScreen = false
     @State private var team1Answer = ""
     @State private var team2Answer = ""
-    @State private var team1Finished = false
-    @State private var team2Finished = false
-    @State private var team1Points = 0
-    @State private var team2Points = 0
     @State private var play = false
     @State private var pass = false
     @State private var next = false
+    @State private var isTeam1 = false
+    @State private var currentAnswer = ""
+    @State private var confirmAnswer = false
     
     @State var gameState: GameState
+    @State var team1Finished: Bool
+    @State var team2Finished: Bool
+    @State var team1Points: Int
+    @State var team2Points: Int
     
     var body: some View {
         if (mainScreen) {
@@ -24,7 +27,7 @@ struct PassOrPlayView: View {
         }
         else if (team1Finished && team2Finished) {
             if (team1Points == 0 && team2Points == 0) {
-                PassOrPlayView(gameState: gameState)
+                PassOrPlayView(gameState: gameState, team1Finished: false, team2Finished: false, team1Points: 0, team2Points: 0)
             } else if (next) {
                 VStack {
                     Text("Do you want to pass or play this round")
@@ -59,11 +62,9 @@ struct PassOrPlayView: View {
                         TextField(gameState.teamName1 + " answer...", text: $team1Answer)
                         Button("Submit answer") {
                             if (!team1Answer.isEmpty) {
-                                team1Points = gameState.round.tryAnswer(team1Answer)
-                                team1Finished = true
-                                if (team1Points == gameState.round.maxPoints()) {
-                                    team2Finished = true
-                                }
+                                currentAnswer = team1Answer
+                                isTeam1 = true
+                                confirmAnswer = true
                             }
                         }
                     }
@@ -73,11 +74,9 @@ struct PassOrPlayView: View {
                         TextField(gameState.teamName2 + " answer...", text: $team2Answer)
                         Button("Submit answer") {
                             if (!team2Answer.isEmpty) {
-                                team2Points = gameState.round.tryAnswer(team2Answer)
-                                team2Finished = true
-                                if (team2Points == gameState.round.maxPoints()) {
-                                    team1Finished = true
-                                }
+                                currentAnswer = team2Answer
+                                isTeam1 = false
+                                confirmAnswer = true
                             }
                         }
                     }
@@ -85,13 +84,16 @@ struct PassOrPlayView: View {
                 Spacer()
                 gameState.scoreTable
                 Spacer()
-            }
+            }.navigate(
+                to: ConfirmPassOrPlayAnswerView(answer:currentAnswer, isTeam1: isTeam1, gameState: gameState, team1Finished: team1Finished, team2Finished: team2Finished, team1Points: team1Points, team2Points: team2Points),
+                when: $confirmAnswer
+            )
         }
     }
 }
 
 struct PassOrPlayView_Previews: PreviewProvider {
     static var previews: some View {
-        PassOrPlayView(gameState: GameState(player1:true, pointsP1:0, pointsP2:0, teamName1: "Victor", teamName2: "Test"))
+        PassOrPlayView(gameState: GameState(player1:true, pointsP1:0, pointsP2:0, teamName1: "Victor", teamName2: "Test"), team1Finished: false, team2Finished: false, team1Points: 0, team2Points: 0)
     }
 }

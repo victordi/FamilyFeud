@@ -14,7 +14,7 @@ struct GameView: View {
             ContentView()
         }
         else if (next) {
-            PassOrPlayView(gameState: gameState.nextRound())
+            PassOrPlayView(gameState: gameState.nextRound(), team1Finished: false, team2Finished: false, team1Points: 0, team2Points: 0)
         }
         else {
             if (gameState.round.isFinished() || gameState.round.strikes == 3) {
@@ -61,7 +61,7 @@ struct GameView: View {
                         mainScreen = true
                     }
                     Spacer()
-                }.navigate(to: ConfirmAnswerView(answer: answer, gameState: gameState), when: $confirmAnswer)
+                }.navigate(to: ConfirmGameAnswerView(answer: answer, gameState: gameState), when: $confirmAnswer)
             }
         }
     }
