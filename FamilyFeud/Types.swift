@@ -26,6 +26,24 @@ struct GameState {
         }
     }
     
+    var scoreTable: some View {
+        HStack {
+            Spacer()
+            VStack {
+                Text(teamName1)
+                Text(String(pointsP1))
+            }
+            Spacer()
+            
+            Spacer()
+            VStack {
+                Text(teamName2)
+                Text(String(pointsP2))
+            }
+            Spacer()
+        }
+    }
+    
     var currentTeam: String {
         player1 ? teamName1 : teamName2
     }
@@ -36,7 +54,11 @@ struct GameState {
     }
     
     func nextRound() -> GameState {
-        GameState(player1: !player1, pointsP1: pointsP1, pointsP2: pointsP2, teamName1: teamName1, teamName2: teamName2, roundCount: roundCount + 1)
+        if (player1) {
+            return GameState(player1: false, pointsP1: pointsP1 + currentPoints, pointsP2: pointsP2, teamName1: teamName1, teamName2: teamName2, roundCount: roundCount + 1)
+        } else {
+            return GameState(player1: true, pointsP1: pointsP1, pointsP2: pointsP2 + currentPoints, teamName1: teamName1, teamName2: teamName2, roundCount: roundCount + 1)
+        }
     }
     
     func copy(player1: Bool? = nil, currentPoints: Int? = nil) -> GameState {
@@ -73,7 +95,6 @@ struct Round {
     }
     
     func isFinished() -> Bool {
-        if (strikes == 3) { return true }
         for i in 0...answers.count - 1 {
             if (!answers[i].isGuessed) {
                 return false

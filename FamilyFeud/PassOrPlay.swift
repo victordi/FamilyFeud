@@ -71,6 +71,9 @@ struct PassOrPlayView: View {
                         }
                     }
                 }
+                Spacer()
+                gameState.scoreTable
+                Spacer()
             }
         }
     }

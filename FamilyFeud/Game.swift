@@ -12,7 +12,10 @@ struct GameView: View {
             ContentView()
         }
         else {
-            if (gameState.round.isFinished()) {
+            if (gameState.round.isFinished() || gameState.round.strikes == 3) {
+                // TODO(): if 3 strikes -> allow opponents to steal
+                // TODO(): before going to next round Reveal all answers and have a button for next round
+                // TODO(): for the above maybe have a view in gameState.reveal() + button here
                 PassOrPlayView(gameState: gameState.nextRound())
             } else {
                 VStack {
@@ -25,31 +28,18 @@ struct GameView: View {
                     Button("Submit answer") {
                         if (!answer.isEmpty) {
                             let points = gameState.round.tryAnswer(answer)
-                            if (points < 0) {
+                            if (points == 0) {
                                 gameState.round.strikes += 1
                             } else {
-                                gameState.addPoints(points)
+                                gameState.currentPoints += points
                             }
                         }
                         answer = ""
                     }
                     
                     Spacer()
-                    HStack {
-                        Spacer()
-                        VStack {
-                            Text(gameState.teamName1)
-                            Text("\(gameState.pointsP1)")
-                        }
-                        Spacer()
-                        Text("Strikes: \(gameState.round.strikes)")
-                        Spacer()
-                        VStack {
-                            Text(gameState.teamName2)
-                            Text("\(gameState.pointsP2)")
-                        }
-                        Spacer()
-                    }
+                    gameState.scoreTable
+                    Text("Strikes: \(gameState.round.strikes)")
                     Spacer()
                     HStack {
                         Spacer()
