@@ -7,6 +7,7 @@ struct GameView: View {
     @State private var mainScreen = false
     @State private var answer = ""
     @State private var next = false
+    @State private var confirmAnswer = false
         
     var body: some View {
         if (mainScreen) {
@@ -49,15 +50,7 @@ struct GameView: View {
                         TextField("Your answer...", text: $answer)
                         Spacer()
                         Button("Submit answer") {
-                            if (!answer.isEmpty) {
-                                let points = gameState.round.tryAnswer(answer)
-                                if (points == 0) {
-                                    gameState.round.strikes += 1
-                                } else {
-                                    gameState.currentPoints += points
-                                }
-                            }
-                            answer = ""
+                            if (!answer.isEmpty) { confirmAnswer = true }
                         }
                     }
                     Spacer()
@@ -68,7 +61,7 @@ struct GameView: View {
                         mainScreen = true
                     }
                     Spacer()
-                }
+                }.navigate(to: ConfirmAnswerView(answer: answer, gameState: gameState), when: $confirmAnswer)
             }
         }
     }
