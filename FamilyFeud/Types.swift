@@ -102,6 +102,12 @@ struct Round {
         }
         return true
     }
+    
+    mutating func reveal() -> Void {
+        for i in 0...answers.count - 1 {
+            answers[i].isGuessed = true
+        }
+    }
 }
 
 struct Answer {

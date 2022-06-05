@@ -6,53 +6,68 @@ struct GameView: View {
     
     @State private var mainScreen = false
     @State private var answer = ""
+    @State private var next = false
         
     var body: some View {
         if (mainScreen) {
             ContentView()
         }
+        else if (next) {
+            PassOrPlayView(gameState: gameState.nextRound())
+        }
         else {
             if (gameState.round.isFinished() || gameState.round.strikes == 3) {
                 // TODO(): if 3 strikes -> allow opponents to steal
-                // TODO(): before going to next round Reveal all answers and have a button for next round
-                // TODO(): for the above maybe have a view in gameState.reveal() + button here
-                PassOrPlayView(gameState: gameState.nextRound())
+                VStack {
+                    Spacer()
+                    Text("Congratulations \(gameState.currentTeam)")
+                    Text("You won \(gameState.currentPoints) points for this round")
+                    Spacer()
+                    gameState.body
+                    Spacer()
+                    gameState.scoreTable
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Button("Reveal all answers") {
+                            gameState.round.reveal()
+                        }
+                        Spacer()
+                        Button("Next round") {
+                            next = true
+                        }
+                        Spacer()
+                    }
+                    Spacer()
+                }
             } else {
                 VStack {
                     Text(gameState.currentTeam)
                     
                     gameState.body
-                        
-                    TextField("Your answer...", text: $answer)
-                    Spacer()
-                    Button("Submit answer") {
-                        if (!answer.isEmpty) {
-                            let points = gameState.round.tryAnswer(answer)
-                            if (points == 0) {
-                                gameState.round.strikes += 1
-                            } else {
-                                gameState.currentPoints += points
+                    HStack {
+                        TextField("Your answer...", text: $answer)
+                        Spacer()
+                        Button("Submit answer") {
+                            if (!answer.isEmpty) {
+                                let points = gameState.round.tryAnswer(answer)
+                                if (points == 0) {
+                                    gameState.round.strikes += 1
+                                } else {
+                                    gameState.currentPoints += points
+                                }
                             }
+                            answer = ""
                         }
-                        answer = ""
                     }
-                    
                     Spacer()
                     gameState.scoreTable
                     Text("Strikes: \(gameState.round.strikes)")
                     Spacer()
-                    HStack {
-                        Spacer()
-                        Button("Next round") {
-                            gameState.round.strikes = 3
-                        }
-                        Spacer()
-                        Spacer()
-                        Button("Exit game") {
-                            mainScreen = true
-                        }
-                        Spacer()
+                    Button("Exit game") {
+                        mainScreen = true
                     }
+                    Spacer()
                 }
             }
         }

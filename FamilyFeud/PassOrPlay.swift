@@ -10,6 +10,7 @@ struct PassOrPlayView: View {
     @State private var team2Points = 0
     @State private var play = false
     @State private var pass = false
+    @State private var next = false
     
     @State var gameState: GameState
     
@@ -17,16 +18,14 @@ struct PassOrPlayView: View {
         if (mainScreen) {
            ContentView()
         }
-        else if (play) {
-            GameView(gameState: gameState.copy(player1: team1Points > team2Points, currentPoints: team1Points + team2Points))
-        }
-        else if (pass) {
-            GameView(gameState: gameState.copy(player1: team2Points > team1Points, currentPoints: team1Points + team2Points))
+        else if (play || pass) {
+            let nextPlayer = (team1Points > team2Points) == play
+            GameView(gameState: gameState.copy(player1: nextPlayer, currentPoints: team1Points + team2Points))
         }
         else if (team1Finished && team2Finished) {
             if (team1Points == 0 && team2Points == 0) {
                 PassOrPlayView(gameState: gameState)
-            } else {
+            } else if (next) {
                 VStack {
                     Text("Do you want to pass or play this round")
                     HStack {
@@ -37,6 +36,18 @@ struct PassOrPlayView: View {
                         Spacer()
                     }
                 }
+            } else {
+                Text("Pass or Play")
+                gameState.body
+                Text("Congratulations \(gameState.currentTeam)")
+                Text("You can now choose to pass or play this round")
+                Spacer()
+                Button("Continue") {
+                    next = true
+                }
+                Spacer()
+                gameState.scoreTable
+                Spacer()
             }
         }
         else {
