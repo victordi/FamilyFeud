@@ -7,6 +7,7 @@ struct GameView: View {
     @State private var mainScreen = false
     @State private var next = false
     @State private var confirmAnswer = false
+    @State private var steal = false
         
     var body: some View {
         ZStack {
@@ -33,6 +34,35 @@ struct GameView: View {
                     }
                     Button("Wrong answer") {
                         gameState.round.strikes += 1
+        
+                        if (gameState.round.strikes == 3) {
+                            steal = true
+                            gameState.player1 = !gameState.player1
+                        }
+                        confirmAnswer = false
+                    }
+                    Spacer()
+                }
+            }
+            else if (steal) {
+                VStack {
+                    Text("\(gameState.currentTeam) can now steal the round.")
+                    Spacer()
+                    ForEach(gameState.round.answers.indices, id: \.self) { i in
+                        let ans = gameState.round.answers[i]
+                        if (!ans.isGuessed) {
+                            Button(ans.text) {
+                                gameState.round.answers[i].isGuessed = true
+                                gameState.currentPoints += ans.points
+                                confirmAnswer = false
+                                steal = false
+                            }
+                            Spacer()
+                        }
+                    }
+                    Button("Wrong answer") {
+                        steal = false
+                        gameState.player1 = !gameState.player1
                         confirmAnswer = false
                     }
                     Spacer()
@@ -40,7 +70,6 @@ struct GameView: View {
             }
             else {
                 if (gameState.round.isFinished() || gameState.round.strikes == 3) {
-                    // TODO(): if 3 strikes -> allow opponents to steal
                     VStack {
                         Spacer()
                         Text("Congratulations \(gameState.currentTeam)")
