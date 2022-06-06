@@ -5,7 +5,6 @@ struct GameView: View {
     @State var gameState: GameState
     
     @State private var mainScreen = false
-    @State private var answer = ""
     @State private var next = false
     @State private var confirmAnswer = false
         
@@ -46,12 +45,9 @@ struct GameView: View {
                     Text(gameState.currentTeam)
                     
                     gameState.body
-                    HStack {
-                        TextField("Your answer...", text: $answer)
-                        Spacer()
-                        Button("Submit answer") {
-                            if (!answer.isEmpty) { confirmAnswer = true }
-                        }
+                
+                    Button("\(gameState.currentTeam) guess") {
+                        confirmAnswer = true
                     }
                     Spacer()
                     gameState.scoreTable
@@ -61,7 +57,7 @@ struct GameView: View {
                         mainScreen = true
                     }
                     Spacer()
-                }.navigate(to: ConfirmGameAnswerView(answer: answer, gameState: gameState), when: $confirmAnswer)
+                }.navigate(to: ConfirmGameAnswerView(gameState: gameState), when: $confirmAnswer)
             }
         }
     }

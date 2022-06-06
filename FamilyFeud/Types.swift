@@ -79,7 +79,6 @@ var previewGameState: GameState {
 }
 
 struct PassOrPlayState {
-    var answer: String
     var isTeam1: Bool
     var team1Finished: Bool
     var team2Finished: Bool
@@ -88,7 +87,7 @@ struct PassOrPlayState {
 }
 
 var emptyPassOrPlayState: PassOrPlayState {
-    PassOrPlayState(answer: "", isTeam1: false, team1Finished: false, team2Finished: false, team1Points: 0, team2Points: 0)
+    PassOrPlayState(isTeam1: false, team1Finished: false, team2Finished: false, team1Points: 0, team2Points: 0)
 }
 
 struct Round {

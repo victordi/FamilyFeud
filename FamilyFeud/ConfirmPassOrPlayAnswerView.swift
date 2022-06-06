@@ -8,7 +8,7 @@ struct ConfirmPassOrPlayAnswerView: View {
     
     var body: some View {
         VStack {
-            Text("Choose an answer that matches \(state.answer)")
+            Text("Choose an answer that matches.")
             Spacer()
             ForEach(gameState.round.answers.indices, id: \.self) { i in
                 let ans = gameState.round.answers[i]

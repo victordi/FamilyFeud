@@ -2,8 +2,6 @@ import SwiftUI
 
 struct PassOrPlayView: View {
     @State private var mainScreen = false
-    @State private var team1Answer = ""
-    @State private var team2Answer = ""
     @State private var play = false
     @State private var pass = false
     @State private var next = false
@@ -52,29 +50,23 @@ struct PassOrPlayView: View {
             VStack {
                 Text("Pass or Play")
                 gameState.body
-                if (!passOrPlayState.team1Finished) {
-                    HStack {
-                        TextField(gameState.teamName1 + " answer...", text: $team1Answer)
-                        Button("Submit answer") {
-                            if (!team1Answer.isEmpty) {
-                                passOrPlayState.answer = team1Answer
-                                passOrPlayState.isTeam1 = true
-                                confirmAnswer = true
-                            }
+                Spacer()
+                HStack {
+                    Spacer()
+                    if (!passOrPlayState.team1Finished) {
+                        Button("\(gameState.teamName1) guess") {
+                            passOrPlayState.isTeam1 = true
+                            confirmAnswer = true
                         }
                     }
-                }
-                if (!passOrPlayState.team2Finished) {
-                    HStack {
-                        TextField(gameState.teamName2 + " answer...", text: $team2Answer)
-                        Button("Submit answer") {
-                            if (!team2Answer.isEmpty) {
-                                passOrPlayState.answer = team2Answer
-                                passOrPlayState.isTeam1 = false
-                                confirmAnswer = true
-                            }
+                    Spacer()
+                    if (!passOrPlayState.team2Finished) {
+                        Button("\(gameState.teamName2) guess") {
+                            passOrPlayState.isTeam1 = false
+                            confirmAnswer = true
                         }
                     }
+                    Spacer()
                 }
                 Spacer()
                 gameState.scoreTable
