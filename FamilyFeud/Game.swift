@@ -14,7 +14,7 @@ struct GameView: View {
             ContentView()
         }
         else if (next) {
-            PassOrPlayView(gameState: gameState.nextRound(), team1Finished: false, team2Finished: false, team1Points: 0, team2Points: 0)
+            PassOrPlayView(gameState: gameState.nextRound(), passOrPlayState: emptyPassOrPlayState)
         }
         else {
             if (gameState.round.isFinished() || gameState.round.strikes == 3) {
@@ -69,6 +69,6 @@ struct GameView: View {
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView(gameState: GameState(player1:true, pointsP1:0, pointsP2:0, teamName1: "Victor", teamName2: "Test"))
+        GameView(gameState: previewGameState)
     }
 }

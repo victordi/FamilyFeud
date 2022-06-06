@@ -28,7 +28,7 @@ struct ContentView: View {
                 Spacer()
             }
         } else {
-            PassOrPlayView(gameState: GameState(player1: true, pointsP1: 0, pointsP2: 0, teamName1: teamName1, teamName2: teamName2), team1Finished: false, team2Finished: false, team1Points: 0, team2Points: 0)
+            PassOrPlayView(gameState: GameState(player1: true, pointsP1: 0, pointsP2: 0, teamName1: teamName1, teamName2: teamName2), passOrPlayState: emptyPassOrPlayState)
         }
     }
 }
