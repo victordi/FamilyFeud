@@ -19,7 +19,7 @@ extension View {
                     isActive: binding
                 ) {
                     EmptyView()
-                }
+                }.isDetailLink(false)
             }
         }
         .navigationViewStyle(.stack)

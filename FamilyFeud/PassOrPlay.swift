@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct PassOrPlayView: View {
-    @State private var mainScreen = false
     @State private var play = false
     @State private var pass = false
     @State private var next = false
@@ -11,10 +10,7 @@ struct PassOrPlayView: View {
     @State var passOrPlayState: PassOrPlayState
     
     var body: some View {
-        if (mainScreen) {
-           ContentView()
-        }
-        else if (play || pass) {
+        if (play || pass) {
             let nextPlayer = (passOrPlayState.team1Points > passOrPlayState.team2Points) == play
             GameView(gameState: gameState.copy(player1: nextPlayer, currentPoints: passOrPlayState.team1Points + passOrPlayState.team2Points))
         }
