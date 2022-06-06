@@ -11,7 +11,11 @@ struct PassOrPlayView: View {
     
     var body: some View {
         ZStack {
-            if (confirmAnswer) {
+            if (play || pass) {
+                let nextPlayer = (passOrPlayState.team1Points > passOrPlayState.team2Points) == play
+                GameView(gameState: gameState.copy(player1: nextPlayer, currentPoints: passOrPlayState.team1Points + passOrPlayState.team2Points))
+            }
+            else if (confirmAnswer) {
                 VStack {
                     Text("Select the team's answer.")
                     Spacer()
@@ -53,10 +57,6 @@ struct PassOrPlayView: View {
                     }
                     Spacer()
                 }
-            }
-            else if (play || pass) {
-                let nextPlayer = (passOrPlayState.team1Points > passOrPlayState.team2Points) == play
-                GameView(gameState: gameState.copy(player1: nextPlayer, currentPoints: passOrPlayState.team1Points + passOrPlayState.team2Points))
             }
             else if (passOrPlayState.team1Finished && passOrPlayState.team2Finished && (passOrPlayState.team1Points != 0 || passOrPlayState.team2Points != 0)) {
                 if (next) {
