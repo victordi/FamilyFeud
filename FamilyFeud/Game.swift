@@ -12,6 +12,28 @@ struct GameView: View {
         if (mainScreen) {
             ContentView()
         }
+        else if (confirmAnswer) {
+            VStack {
+                Text("Choose an answer that matches.")
+                Spacer()
+                ForEach(gameState.round.answers.indices, id: \.self) { i in
+                    let ans = gameState.round.answers[i]
+                    if (!ans.isGuessed) {
+                        Button(ans.text) {
+                            gameState.round.answers[i].isGuessed = true
+                            gameState.currentPoints += ans.points
+                            confirmAnswer = false
+                        }
+                        Spacer()
+                    }
+                }
+                Button("Wrong answer") {
+                    gameState.round.strikes += 1
+                    confirmAnswer = false
+                }
+                Spacer()
+            }
+        }
         else if (next) {
             PassOrPlayView(gameState: gameState.nextRound(), passOrPlayState: emptyPassOrPlayState)
         }
@@ -57,7 +79,7 @@ struct GameView: View {
                         mainScreen = true
                     }
                     Spacer()
-                }.navigate(to: ConfirmGameAnswerView(gameState: gameState), when: $confirmAnswer)
+                }
             }
         }
     }
