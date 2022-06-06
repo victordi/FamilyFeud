@@ -5,70 +5,83 @@ struct GameView: View {
     @State var gameState: GameState
     
     @State private var mainScreen = false
-    @State private var answer = ""
     @State private var next = false
+    @State private var confirmAnswer = false
         
     var body: some View {
-        if (mainScreen) {
-            ContentView()
-        }
-        else if (next) {
-            PassOrPlayView(gameState: gameState.nextRound())
-        }
-        else {
-            if (gameState.round.isFinished() || gameState.round.strikes == 3) {
-                // TODO(): if 3 strikes -> allow opponents to steal
+        ZStack {
+            if (mainScreen) {
+                ContentView()
+            }
+            else if (next) {
+                PassOrPlayView(gameState: gameState.nextRound(), passOrPlayState: emptyPassOrPlayState)
+            }
+            else if (confirmAnswer) {
                 VStack {
+                    Text("Choose an answer that matches.")
                     Spacer()
-                    Text("Congratulations \(gameState.currentTeam)")
-                    Text("You won \(gameState.currentPoints) points for this round")
-                    Spacer()
-                    gameState.body
-                    Spacer()
-                    gameState.scoreTable
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        Button("Reveal all answers") {
-                            gameState.round.reveal()
+                    ForEach(gameState.round.answers.indices, id: \.self) { i in
+                        let ans = gameState.round.answers[i]
+                        if (!ans.isGuessed) {
+                            Button(ans.text) {
+                                gameState.round.answers[i].isGuessed = true
+                                gameState.currentPoints += ans.points
+                                confirmAnswer = false
+                            }
+                            Spacer()
                         }
-                        Spacer()
-                        Button("Next round") {
-                            next = true
-                        }
-                        Spacer()
+                    }
+                    Button("Wrong answer") {
+                        gameState.round.strikes += 1
+                        confirmAnswer = false
                     }
                     Spacer()
                 }
-            } else {
-                VStack {
-                    Text(gameState.currentTeam)
-                    
-                    gameState.body
-                    HStack {
-                        TextField("Your answer...", text: $answer)
+            }
+            else {
+                if (gameState.round.isFinished() || gameState.round.strikes == 3) {
+                    // TODO(): if 3 strikes -> allow opponents to steal
+                    VStack {
                         Spacer()
-                        Button("Submit answer") {
-                            if (!answer.isEmpty) {
-                                let points = gameState.round.tryAnswer(answer)
-                                if (points == 0) {
-                                    gameState.round.strikes += 1
-                                } else {
-                                    gameState.currentPoints += points
-                                }
+                        Text("Congratulations \(gameState.currentTeam)")
+                        Text("You won \(gameState.currentPoints) points for this round")
+                        Spacer()
+                        gameState.body
+                        Spacer()
+                        gameState.scoreTable
+                        Spacer()
+                        HStack {
+                            Spacer()
+                            Button("Reveal all answers") {
+                                gameState.round.reveal()
                             }
-                            answer = ""
+                            Spacer()
+                            Button("Next round") {
+                                next = true
+                            }
+                            Spacer()
                         }
+                        Spacer()
                     }
-                    Spacer()
-                    gameState.scoreTable
-                    Text("Strikes: \(gameState.round.strikes)")
-                    Spacer()
-                    Button("Exit game") {
-                        mainScreen = true
+                } else {
+                    VStack {
+                        Text(gameState.currentTeam)
+                        
+                        gameState.body
+                    
+                        Button("\(gameState.currentTeam) guess") {
+                            confirmAnswer = true
+                        }
+                        Spacer()
+                        gameState.scoreTable
+                        Text("Strikes: \(gameState.round.strikes)")
+                        Spacer()
+                        Button("Exit game") {
+                            mainScreen = true
+                        }
+                        Spacer()
                     }
-                    Spacer()
-                }
+                }
             }
         }
     }
@@ -76,6 +89,6 @@ struct GameView: View {
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView(gameState: GameState(player1:true, pointsP1:0, pointsP2:0, teamName1: "Victor", teamName2: "Test"))
+        GameView(gameState: previewGameState)
     }
 }

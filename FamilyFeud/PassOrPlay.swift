@@ -1,90 +1,117 @@
 import SwiftUI
 
 struct PassOrPlayView: View {
-    @State private var mainScreen = false
-    @State private var team1Answer = ""
-    @State private var team2Answer = ""
-    @State private var team1Finished = false
-    @State private var team2Finished = false
-    @State private var team1Points = 0
-    @State private var team2Points = 0
     @State private var play = false
     @State private var pass = false
     @State private var next = false
+    @State private var confirmAnswer = false
     
     @State var gameState: GameState
+    @State var passOrPlayState: PassOrPlayState
     
     var body: some View {
-        if (mainScreen) {
-           ContentView()
-        }
-        else if (play || pass) {
-            let nextPlayer = (team1Points > team2Points) == play
-            GameView(gameState: gameState.copy(player1: nextPlayer, currentPoints: team1Points + team2Points))
-        }
-        else if (team1Finished && team2Finished) {
-            if (team1Points == 0 && team2Points == 0) {
-                PassOrPlayView(gameState: gameState)
-            } else if (next) {
-                VStack {
-                    Text("Do you want to pass or play this round")
-                    HStack {
-                        Spacer()
-                        Button("Play") { play = true }
-                        Spacer()
-                        Button("Pass") { pass = true }
-                        Spacer()
-                    }
-                }
-            } else {
-                Text("Pass or Play")
-                gameState.body
-                Text("Congratulations \(gameState.currentTeam)")
-                Text("You can now choose to pass or play this round")
-                Spacer()
-                Button("Continue") {
-                    next = true
-                }
-                Spacer()
-                gameState.scoreTable
-                Spacer()
+        ZStack {
+            if (play || pass) {
+                let nextPlayer = (passOrPlayState.team1Points > passOrPlayState.team2Points) == play
+                GameView(gameState: gameState.copy(player1: nextPlayer, currentPoints: passOrPlayState.team1Points + passOrPlayState.team2Points))
             }
-        }
-        else {
-            VStack {
-                Text("Pass or Play")
-                gameState.body
-                if (!team1Finished) {
-                    HStack {
-                        TextField(gameState.teamName1 + " answer...", text: $team1Answer)
-                        Button("Submit answer") {
-                            if (!team1Answer.isEmpty) {
-                                team1Points = gameState.round.tryAnswer(team1Answer)
-                                team1Finished = true
-                                if (team1Points == gameState.round.maxPoints()) {
-                                    team2Finished = true
+            else if (confirmAnswer) {
+                VStack {
+                    Text("Select the team's answer.")
+                    Spacer()
+                    ForEach(gameState.round.answers.indices, id: \.self) { i in
+                        let ans = gameState.round.answers[i]
+                        if (!ans.isGuessed) {
+                            Button(ans.text) {
+                                gameState.round.answers[i].isGuessed = true
+                                if (passOrPlayState.isTeam1) {
+                                    passOrPlayState.team1Points = ans.points
+                                    passOrPlayState.team1Finished = true
+                                    if (ans.points == gameState.round.maxPoints()) {
+                                        passOrPlayState.team2Finished = true
+                                    }
+                                } else {
+                                    passOrPlayState.team2Points = ans.points
+                                    passOrPlayState.team2Finished = true
+                                    if (ans.points == gameState.round.maxPoints()) {
+                                        passOrPlayState.team1Finished = true
+                                    }
                                 }
+                                if (passOrPlayState.team1Points > passOrPlayState.team2Points) {
+                                    gameState.player1 = true
+                                } else {
+                                    gameState.player1 = false
+                                }
+                                confirmAnswer = false
                             }
+                            Spacer()
                         }
                     }
+                    Button("Wrong answer") {
+                        if (passOrPlayState.isTeam1) { passOrPlayState.team1Finished = true }
+                        else { passOrPlayState.team2Finished = true }
+                        if (passOrPlayState.team2Finished && passOrPlayState.team1Finished && passOrPlayState.team1Points == passOrPlayState.team2Points) {
+                            passOrPlayState = emptyPassOrPlayState
+                        }
+                        confirmAnswer = false
+                    }
+                    Spacer()
                 }
-                if (!team2Finished) {
-                    HStack {
-                        TextField(gameState.teamName2 + " answer...", text: $team2Answer)
-                        Button("Submit answer") {
-                            if (!team2Answer.isEmpty) {
-                                team2Points = gameState.round.tryAnswer(team2Answer)
-                                team2Finished = true
-                                if (team2Points == gameState.round.maxPoints()) {
-                                    team1Finished = true
-                                }
-                            }
+            }
+            else if (passOrPlayState.team1Finished && passOrPlayState.team2Finished && (passOrPlayState.team1Points != 0 || passOrPlayState.team2Points != 0)) {
+                if (next) {
+                    VStack {
+                        Text("Do you want to pass or play this round")
+                        HStack {
+                            Spacer()
+                            Button("Play") { play = true }
+                            Spacer()
+                            Button("Pass") { pass = true }
+                            Spacer()
                         }
                     }
+                } else {
+                    VStack {
+                        Text("Pass or Play")
+                        gameState.body
+                        Text("Congratulations \(gameState.currentTeam)")
+                        Text("You can now choose to pass or play this round")
+                        Spacer()
+                        Button("Continue") {
+                            next = true
+                        }
+                        Spacer()
+                        gameState.scoreTable
+                        Spacer()
+                    }
                 }
-                Spacer()
-                gameState.scoreTable
-                Spacer()
+            }
+            else {
+                VStack {
+                    Text("Pass or Play")
+                    gameState.body
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        if (!passOrPlayState.team1Finished) {
+                            Button("\(gameState.teamName1) guess") {
+                                passOrPlayState.isTeam1 = true
+                                confirmAnswer = true
+                            }
+                        }
+                        Spacer()
+                        if (!passOrPlayState.team2Finished) {
+                            Button("\(gameState.teamName2) guess") {
+                                passOrPlayState.isTeam1 = false
+                                confirmAnswer = true
+                            }
+                        }
+                        Spacer()
+                    }
+                    Spacer()
+                    gameState.scoreTable
+                    Spacer()
+                }
             }
         }
     }
@@ -92,6 +119,6 @@ struct PassOrPlayView: View {
 
 struct PassOrPlayView_Previews: PreviewProvider {
     static var previews: some View {
-        PassOrPlayView(gameState: GameState(player1:true, pointsP1:0, pointsP2:0, teamName1: "Victor", teamName2: "Test"))
+        PassOrPlayView(gameState: previewGameState, passOrPlayState: emptyPassOrPlayState)
     }
 }
