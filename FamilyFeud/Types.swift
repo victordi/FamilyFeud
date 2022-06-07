@@ -154,40 +154,22 @@ struct Answer {
     }
 }
 
-var game1 = Round(
-    question: "What is your favourite animal?",
-     answers: [
-        Answer(text: "Dog", points: 40),
-        Answer(text: "Cat", points: 30),
-        Answer(text: "Turtle", points: 10),
-        Answer(text: "Hippo", points: 5),
-        Answer(text: "Chiken", points: 4),
-        Answer(text: "Human", points: 1)
-     ]
-)
+var games: [Round] = []
 
-var game2 = Round(
-    question: "What is your favourite animal 2?",
-     answers: [
-        Answer(text: "Dog", points: 40),
-        Answer(text: "Cat", points: 30),
-        Answer(text: "Turtle", points: 10),
-        Answer(text: "Hippo", points: 5),
-        Answer(text: "Chiken", points: 4),
-        Answer(text: "Human", points: 1)
-     ]
-)
-
-var game3 = Round(
-    question: "What is your favourite animal 3?",
-     answers: [
-        Answer(text: "Dog", points: 40),
-        Answer(text: "Cat", points: 30),
-        Answer(text: "Turtle", points: 10),
-        Answer(text: "Hippo", points: 5),
-        Answer(text: "Chiken", points: 4),
-        Answer(text: "Human", points: 1)
-     ]
-)
-
-var games = [game1, game2, game3]
+func populateGames() -> Void {
+    var text = ""
+    let path = Bundle.main.paths(forResourcesOfType: "txt", inDirectory: nil).first.unsafelyUnwrapped
+    do { text = try String(contentsOfFile: path) } catch {}
+    let lines = text.split(separator: "\n").map { it in String(it) }
+    let rounds = lines.splitQuestions()
+    games = rounds.map { round in
+        let question = String(round.first.unsafelyUnwrapped.drop(while: { c in c != "."}).dropFirst())
+        let remaining: [String] = Array.init(round.dropFirst())
+        let answers: [Answer] = remaining.map { answer in
+            let split = answer.split(separator: "-")
+            let integer = split[1].filter {c in c != " " }
+            return Answer(text: String(split[0]), points: Int(integer).unsafelyUnwrapped)
+        }
+        return Round(question: question, answers: answers)
+    }
+}

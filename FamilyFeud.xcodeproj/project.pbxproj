@@ -17,6 +17,7 @@
 		AE01B76F284A131700B05475 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE01B76E284A131700B05475 /* Game.swift */; };
 		AE01B771284B720C00B05475 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE01B770284B720C00B05475 /* Types.swift */; };
 		AE01B773284B774C00B05475 /* PassOrPlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE01B772284B774C00B05475 /* PassOrPlay.swift */; };
+		AE39F087284F33C6000DE09B /* Questions.txt in Resources */ = {isa = PBXBuildFile; fileRef = AE39F086284F33C6000DE09B /* Questions.txt */; };
 		AE966A16284CBE6D00066B8C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE966A15284CBE6D00066B8C /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +52,7 @@
 		AE01B76E284A131700B05475 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		AE01B770284B720C00B05475 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		AE01B772284B774C00B05475 /* PassOrPlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassOrPlay.swift; sourceTree = "<group>"; };
+		AE39F086284F33C6000DE09B /* Questions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Questions.txt; sourceTree = "<group>"; };
 		AE966A15284CBE6D00066B8C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -102,6 +104,7 @@
 		AE01B743284A0CC400B05475 /* FamilyFeud */ = {
 			isa = PBXGroup;
 			children = (
+				AE39F085284F21F1000DE09B /* Resources */,
 				AE01B744284A0CC400B05475 /* FamilyFeudApp.swift */,
 				AE01B746284A0CC400B05475 /* ContentView.swift */,
 				AE01B748284A0CC700B05475 /* Assets.xcassets */,
@@ -137,6 +140,14 @@
 				AE01B761284A0CC700B05475 /* FamilyFeudUITestsLaunchTests.swift */,
 			);
 			path = FamilyFeudUITests;
+			sourceTree = "<group>";
+		};
+		AE39F085284F21F1000DE09B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				AE39F086284F33C6000DE09B /* Questions.txt */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,6 +254,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE39F087284F33C6000DE09B /* Questions.txt in Resources */,
 				AE01B74C284A0CC700B05475 /* Preview Assets.xcassets in Resources */,
 				AE01B749284A0CC700B05475 /* Assets.xcassets in Resources */,
 			);
