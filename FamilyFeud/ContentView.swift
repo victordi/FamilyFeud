@@ -8,6 +8,7 @@ struct ContentView: View {
     var body: some View {
         if (mainScreen) {
             VStack {
+                let _ = populateGames()
                 Spacer()
                 Text("Welcome to Family Feud!")
                     .padding(.all)
