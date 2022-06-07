@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct PassOrPlayView: View {
+    @State private var mainScreen = false
     @State private var play = false
     @State private var pass = false
     @State private var next = false
@@ -11,13 +12,16 @@ struct PassOrPlayView: View {
     
     var body: some View {
         ZStack {
-            if (play || pass) {
+            if (mainScreen) {
+                ContentView()
+            }
+            else if (play || pass) {
                 let nextPlayer = (passOrPlayState.team1Points > passOrPlayState.team2Points) == play
                 GameView(gameState: gameState.copy(player1: nextPlayer, currentPoints: passOrPlayState.team1Points + passOrPlayState.team2Points))
             }
             else if (confirmAnswer) {
                 VStack {
-                    Text("Select the team's answer.")
+                    Text("Select the team's answer.").bold().font(.system(size: 30))
                     Spacer()
                     ForEach(gameState.round.answers.indices, id: \.self) { i in
                         let ans = gameState.round.answers[i]
@@ -43,7 +47,7 @@ struct PassOrPlayView: View {
                                     gameState.player1 = false
                                 }
                                 confirmAnswer = false
-                            }
+                            }.buttonStyle(MyButton())
                             Spacer()
                         }
                     }
@@ -54,32 +58,30 @@ struct PassOrPlayView: View {
                             passOrPlayState = emptyPassOrPlayState
                         }
                         confirmAnswer = false
-                    }
+                    }.buttonStyle(MyButton())
                     Spacer()
                 }
             }
             else if (passOrPlayState.team1Finished && passOrPlayState.team2Finished && (passOrPlayState.team1Points != 0 || passOrPlayState.team2Points != 0)) {
                 if (next) {
                     VStack {
-                        Text("Do you want to pass or play this round")
+                        Text("Do you want to pass or play this round").bold().font(.system(size: 30))
                         HStack {
                             Spacer()
-                            Button("Play") { play = true }
+                            Button("Play") { play = true }.buttonStyle(MyButton())
                             Spacer()
-                            Button("Pass") { pass = true }
+                            Button("Pass") { pass = true }.buttonStyle(MyButton())
                             Spacer()
                         }
                     }
                 } else {
                     VStack {
-                        Text("Pass or Play")
+                        Text("Pass or Play").bold().font(.system(size: 30))
                         gameState.body
                         Text("Congratulations \(gameState.currentTeam)")
                         Text("You can now choose to pass or play this round")
                         Spacer()
-                        Button("Continue") {
-                            next = true
-                        }
+                        Button("Continue") { next = true }.buttonStyle(MyButton())
                         Spacer()
                         gameState.scoreTable
                         Spacer()
@@ -88,7 +90,7 @@ struct PassOrPlayView: View {
             }
             else {
                 VStack {
-                    Text("Pass or Play")
+                    Text("Pass or Play").bold().font(.system(size: 30))
                     gameState.body
                     Spacer()
                     HStack {
@@ -97,19 +99,23 @@ struct PassOrPlayView: View {
                             Button("\(gameState.teamName1) guess") {
                                 passOrPlayState.isTeam1 = true
                                 confirmAnswer = true
-                            }
+                            }.buttonStyle(MyButton())
                         }
                         Spacer()
                         if (!passOrPlayState.team2Finished) {
                             Button("\(gameState.teamName2) guess") {
                                 passOrPlayState.isTeam1 = false
                                 confirmAnswer = true
-                            }
+                            }.buttonStyle(MyButton())
                         }
                         Spacer()
                     }
                     Spacer()
                     gameState.scoreTable
+                    Spacer()
+                    Button("Exit game") {
+                        mainScreen = true
+                    }.buttonStyle(MyButton())
                     Spacer()
                 }
             }
