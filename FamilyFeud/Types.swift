@@ -173,3 +173,13 @@ func populateGames() -> Void {
         return Round(question: question, answers: answers)
     }
 }
+
+struct MyButton: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding()
+            .background(.blue)
+            .foregroundColor(.white)
+            .clipShape(Capsule())
+    }
+}

@@ -663,7 +663,7 @@ Camping - 16
 Biking - 11
 Fishing - 8
 5. Name a popular Comedy TV Series.
-F.R.I.E.N.D.S - 26
+Friends - 26
 Seinfeld - 23
 Modern Family - 19
 The Big Bang Theory - 17
@@ -1080,7 +1080,7 @@ Do some chores - 11
 Halloween - 34
 Christmas - 26
 New Year’s Eve - 18
-St. Patrick’s Day - 14
+Saint Patrick’s Day - 14
 Mardi Gras - 8
 75. Complete the following: _________ card
 Credit - 29
