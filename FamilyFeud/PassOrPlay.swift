@@ -113,9 +113,17 @@ struct PassOrPlayView: View {
                     Spacer()
                     gameState.scoreTable
                     Spacer()
-                    Button("Exit game") {
-                        mainScreen = true
-                    }.buttonStyle(MyButton())
+                    HStack {
+                        Spacer()
+                        Button("Skip question") {
+                            gameState.round = games.randomElement().unsafelyUnwrapped
+                        }.buttonStyle(MyButton())
+                        Spacer()
+                        Button("Exit game") {
+                            mainScreen = true
+                        }.buttonStyle(MyButton())
+                        Spacer()
+                    }
                     Spacer()
                 }
             }
