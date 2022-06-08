@@ -14,10 +14,13 @@
 		AE01B756284A0CC700B05475 /* FamilyFeudTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE01B755284A0CC700B05475 /* FamilyFeudTests.swift */; };
 		AE01B760284A0CC700B05475 /* FamilyFeudUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE01B75F284A0CC700B05475 /* FamilyFeudUITests.swift */; };
 		AE01B762284A0CC700B05475 /* FamilyFeudUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE01B761284A0CC700B05475 /* FamilyFeudUITestsLaunchTests.swift */; };
-		AE01B76F284A131700B05475 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE01B76E284A131700B05475 /* Game.swift */; };
 		AE01B771284B720C00B05475 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE01B770284B720C00B05475 /* Types.swift */; };
-		AE01B773284B774C00B05475 /* PassOrPlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE01B772284B774C00B05475 /* PassOrPlay.swift */; };
 		AE39F087284F33C6000DE09B /* Questions.txt in Resources */ = {isa = PBXBuildFile; fileRef = AE39F086284F33C6000DE09B /* Questions.txt */; };
+		AE39F08A2850969F000DE09B /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE39F0892850969F000DE09B /* MainScreen.swift */; };
+		AE39F08E2850971A000DE09B /* GameScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE39F08D2850971A000DE09B /* GameScreen.swift */; };
+		AE39F09028509725000DE09B /* PassOrPlayScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE39F08F28509725000DE09B /* PassOrPlayScreen.swift */; };
+		AE39F0922850ABD1000DE09B /* ConfirmAnswerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE39F0912850ABD0000DE09B /* ConfirmAnswerScreen.swift */; };
+		AE39F0942850ECC1000DE09B /* StealScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE39F0932850ECC1000DE09B /* StealScreen.swift */; };
 		AE966A16284CBE6D00066B8C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE966A15284CBE6D00066B8C /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -49,10 +52,13 @@
 		AE01B75B284A0CC700B05475 /* FamilyFeudUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FamilyFeudUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE01B75F284A0CC700B05475 /* FamilyFeudUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyFeudUITests.swift; sourceTree = "<group>"; };
 		AE01B761284A0CC700B05475 /* FamilyFeudUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyFeudUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		AE01B76E284A131700B05475 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		AE01B770284B720C00B05475 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
-		AE01B772284B774C00B05475 /* PassOrPlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassOrPlay.swift; sourceTree = "<group>"; };
 		AE39F086284F33C6000DE09B /* Questions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Questions.txt; sourceTree = "<group>"; };
+		AE39F0892850969F000DE09B /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
+		AE39F08D2850971A000DE09B /* GameScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScreen.swift; sourceTree = "<group>"; };
+		AE39F08F28509725000DE09B /* PassOrPlayScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassOrPlayScreen.swift; sourceTree = "<group>"; };
+		AE39F0912850ABD0000DE09B /* ConfirmAnswerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmAnswerScreen.swift; sourceTree = "<group>"; };
+		AE39F0932850ECC1000DE09B /* StealScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StealScreen.swift; sourceTree = "<group>"; };
 		AE966A15284CBE6D00066B8C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,14 +110,13 @@
 		AE01B743284A0CC400B05475 /* FamilyFeud */ = {
 			isa = PBXGroup;
 			children = (
+				AE39F08C285096B4000DE09B /* Screens */,
 				AE39F085284F21F1000DE09B /* Resources */,
 				AE01B744284A0CC400B05475 /* FamilyFeudApp.swift */,
 				AE01B746284A0CC400B05475 /* ContentView.swift */,
 				AE01B748284A0CC700B05475 /* Assets.xcassets */,
 				AE01B74A284A0CC700B05475 /* Preview Content */,
-				AE01B76E284A131700B05475 /* Game.swift */,
 				AE01B770284B720C00B05475 /* Types.swift */,
-				AE01B772284B774C00B05475 /* PassOrPlay.swift */,
 				AE966A15284CBE6D00066B8C /* Extensions.swift */,
 			);
 			path = FamilyFeud;
@@ -148,6 +153,18 @@
 				AE39F086284F33C6000DE09B /* Questions.txt */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		AE39F08C285096B4000DE09B /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				AE39F0892850969F000DE09B /* MainScreen.swift */,
+				AE39F08D2850971A000DE09B /* GameScreen.swift */,
+				AE39F08F28509725000DE09B /* PassOrPlayScreen.swift */,
+				AE39F0912850ABD0000DE09B /* ConfirmAnswerScreen.swift */,
+				AE39F0932850ECC1000DE09B /* StealScreen.swift */,
+			);
+			path = Screens;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,11 +298,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE01B773284B774C00B05475 /* PassOrPlay.swift in Sources */,
+				AE39F08A2850969F000DE09B /* MainScreen.swift in Sources */,
+				AE39F0942850ECC1000DE09B /* StealScreen.swift in Sources */,
 				AE966A16284CBE6D00066B8C /* Extensions.swift in Sources */,
+				AE39F09028509725000DE09B /* PassOrPlayScreen.swift in Sources */,
 				AE01B747284A0CC400B05475 /* ContentView.swift in Sources */,
-				AE01B76F284A131700B05475 /* Game.swift in Sources */,
+				AE39F08E2850971A000DE09B /* GameScreen.swift in Sources */,
 				AE01B745284A0CC400B05475 /* FamilyFeudApp.swift in Sources */,
+				AE39F0922850ABD1000DE09B /* ConfirmAnswerScreen.swift in Sources */,
 				AE01B771284B720C00B05475 /* Types.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
