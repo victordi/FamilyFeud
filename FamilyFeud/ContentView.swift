@@ -5,10 +5,16 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Button("Main screen") {
+            Button {
                 gameState.reset()
+            } label: {
+                Spacer()
+                Image(systemName: "house.circle.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 390, height: 32)
+                    .foregroundColor(.blue)
             }
-            Spacer()
             switch gameState.screen {
             case Screen.Main:
                 MainScreen(gameState: gameState)
@@ -22,5 +28,11 @@ struct ContentView: View {
                 StealScreen(gameState: gameState)
             }
         }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView().environmentObject(GameState())
     }
 }
