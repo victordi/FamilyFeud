@@ -21,6 +21,7 @@
 		AE39F09028509725000DE09B /* PassOrPlayScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE39F08F28509725000DE09B /* PassOrPlayScreen.swift */; };
 		AE39F0922850ABD1000DE09B /* ConfirmAnswerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE39F0912850ABD0000DE09B /* ConfirmAnswerScreen.swift */; };
 		AE39F0942850ECC1000DE09B /* StealScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE39F0932850ECC1000DE09B /* StealScreen.swift */; };
+		AE8C435328534A360078BD18 /* ConfirmationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8C435228534A360078BD18 /* ConfirmationScreen.swift */; };
 		AE966A16284CBE6D00066B8C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE966A15284CBE6D00066B8C /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,7 @@
 		AE39F08F28509725000DE09B /* PassOrPlayScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassOrPlayScreen.swift; sourceTree = "<group>"; };
 		AE39F0912850ABD0000DE09B /* ConfirmAnswerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmAnswerScreen.swift; sourceTree = "<group>"; };
 		AE39F0932850ECC1000DE09B /* StealScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StealScreen.swift; sourceTree = "<group>"; };
+		AE8C435228534A360078BD18 /* ConfirmationScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationScreen.swift; sourceTree = "<group>"; };
 		AE966A15284CBE6D00066B8C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,6 +165,7 @@
 				AE39F08F28509725000DE09B /* PassOrPlayScreen.swift */,
 				AE39F0912850ABD0000DE09B /* ConfirmAnswerScreen.swift */,
 				AE39F0932850ECC1000DE09B /* StealScreen.swift */,
+				AE8C435228534A360078BD18 /* ConfirmationScreen.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 			files = (
 				AE39F08A2850969F000DE09B /* MainScreen.swift in Sources */,
 				AE39F0942850ECC1000DE09B /* StealScreen.swift in Sources */,
+				AE8C435328534A360078BD18 /* ConfirmationScreen.swift in Sources */,
 				AE966A16284CBE6D00066B8C /* Extensions.swift in Sources */,
 				AE39F09028509725000DE09B /* PassOrPlayScreen.swift in Sources */,
 				AE01B747284A0CC400B05475 /* ContentView.swift in Sources */,

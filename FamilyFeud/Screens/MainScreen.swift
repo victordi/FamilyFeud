@@ -9,9 +9,10 @@ func MainScreen(gameState: GameState) -> some View {
             Image("FrontPage").resizable().scaledToFit()
         
             Button("Start new game") {
-               gameState.screen = Screen.PassOrPlay
+                if (!gameState.teamName2.isEmpty && !gameState.teamName1.isEmpty) {
+                    gameState.screen = Screen.PassOrPlay
+                }
             }.buttonStyle(MyButton())
-
             Spacer()
         }
     }

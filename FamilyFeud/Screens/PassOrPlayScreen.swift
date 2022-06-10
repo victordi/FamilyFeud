@@ -5,6 +5,7 @@ func PassOrPlayScreen(gameState: GameState) -> some View {
         if (gameState.passOrPlayState.team1Finished && gameState.passOrPlayState.team2Finished && (gameState.passOrPlayState.team1Points != 0 || gameState.passOrPlayState.team2Points != 0)) {
             if (gameState.next) {
                 VStack {
+                    Spacer()
                     Text("Do you want to pass or play this round").bold().font(.system(size: 30))
                     HStack {
                         Spacer()
@@ -21,6 +22,7 @@ func PassOrPlayScreen(gameState: GameState) -> some View {
                         }.buttonStyle(MyButton())
                         Spacer()
                     }
+                    Spacer()
                 }
             } else {
                 VStack {

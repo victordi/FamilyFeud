@@ -1,7 +1,7 @@
 import SwiftUI
 
 enum Screen {
-    case Main, PassOrPlay, Game, ConfirmAnswer, Steal
+    case Main, PassOrPlay, Game, ConfirmAnswer, Steal, Confirmation
 }
 
 class GameState : ObservableObject {
@@ -9,8 +9,8 @@ class GameState : ObservableObject {
     @Published var pointsP1: Int = 0
     @Published var pointsP2: Int = 0
     @Published var currentPoints: Int = 0
-    @Published var teamName1: String = "Team 1"
-    @Published var teamName2: String = "Team 2"
+    @Published var teamName1: String = ""
+    @Published var teamName2: String = ""
     @Published var roundCount: Int = 0
     @Published var round: Round
     @Published var screen: Screen = Screen.Main

@@ -52,7 +52,6 @@ func handleGameAnswer(gameState: GameState, isCorrect: Bool, index: Int) -> Void
         gameState.currentPoints += ans.points
         gameState.screen = Screen.Game
     } else {
-        print(gameState.round.strikes)
         gameState.round.strikes += 1
         if (gameState.round.strikes == 3) {
             gameState.player1 = !gameState.player1
